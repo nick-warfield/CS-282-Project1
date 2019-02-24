@@ -75,6 +75,7 @@ public class Driver{
 	    	}
 		}
     }
+	// NEED HELP TO SEPERATE DATA BY LINE
 	public static void load(String filename, GroupData d2) 
     {
 		Scanner fin = null;
