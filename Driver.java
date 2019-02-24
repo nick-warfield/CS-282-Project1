@@ -18,7 +18,7 @@ public class Driver{
 		GroupData d1 = d2;
 		while(true)
 		{
-			System.out.print("Please enter a data.txt file to start ");
+			System.out.print("\nPlease enter a data.txt file to start ");
 			String line = in.nextLine();
 			String[] file = line.split(" "); // split line
 			String fileName = file[0];
@@ -27,13 +27,17 @@ public class Driver{
 					load(file[0], d1);
 					break;
 				}
+			else if(fileName.equals("none"))
+	    	{
+	    		break;
+	    	}
 			else 
 				System.out.println("Not valid, please try again");
 		}
 		while (true)
 		{
-	   		System.out.print("Please enter a command: add, drop," + 
-	   			"find, size, members, largest, smallest, cover, and quit.");
+	   		System.out.println("\nPlease enter a command: add, drop, " + 
+	   			"find, size, members, largest, smallest, \ncover, help and quit.");
 	   		String line = in.nextLine();
 	   		String[] t = line.split(" "); // split line
 	   		String cmd = t[0];
@@ -43,23 +47,32 @@ public class Driver{
 	   		}
 	   		else if (cmd.equals("add"))
 	   		{
-	      		
+	      		System.out.println("Enter student name: ");
+				
+				System.out.println("Enter student ID: ");
+				
+				System.out.println("Enter groups student is in: ");
+				
 	    	}
 	    	else if(cmd.equals("drop"))
 	    	{
-	    		
+	    		System.out.println("Enter student ID: ");
+				
+				
 	    	}
 	    	else if(cmd.equals("find"))
 	    	{
-	    		
+	    		System.out.println("Enter student ID: ");
+				
+				//System.out.println();
 	    	}
 	    	else if(cmd.equals("size"))
 	    	{
-	    		
+	    		System.out.println("Enter Group #: ");
 	    	}
 			else if(cmd.equals("members"))
 	    	{
-	    		
+	    		System.out.println("Enter Group #: ");
 	    	}
 			else if(cmd.equals("largest"))
 	    	{
@@ -72,6 +85,20 @@ public class Driver{
 			else if(cmd.equals("cover"))
 	    	{
 	    		
+	    	}
+			else if(cmd.equals("help"))
+	    	{
+	    		System.out.println("\nYour options are:" +
+					"\nadd (adds a student)" +
+					"\ndrop (drops a student)" +
+					"\nfind (outputs a student)" +
+					"\nsize (outputs the size of a group)" +
+					"\nmembers (outputs the members of a group)" +
+					"\nlargest (outputs the largest size of any group)" +
+					"\nsmallest (outputs the smallest size of any group)" +
+					"\ncover (outputs the minimum number of groups which" +
+					"cover all students)" +
+					"\nquit (ends the program)\n");
 	    	}
 		}
     }
