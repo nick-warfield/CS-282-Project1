@@ -105,23 +105,18 @@ public class Driver{
 	// NEED HELP TO SEPERATE DATA BY LINE
 	public static void load(String filename, GroupData d2) 
     {
-		Scanner fin = null;
+
 		try
 		{
-	   		fin = new Scanner(new FileReader(filename));
-	   		GroupData d1 = d2;
-			String row = fin.nextLine();
-	   		String[] given = row.split(","); // split
-	   		//String info = given[0];
-			//String info = given[1];
-			//String info = given[2];
-			for(int students=0; students<given.length; students+=3)
+			FileReader fr = new FileReader(filename);
+			BufferedReader br = new BufferedReader(fr);
+			String line;
+			while((line = br.readLine()) != null)
 			{
-				for(int data=0; data<3; data++)
-				{
-					
-				}
+				System.out.println(line);
 			}
+			br.close();
+			fr.close();
 		}
 		catch (Exception exception1)
 		{
