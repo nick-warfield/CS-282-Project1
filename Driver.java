@@ -102,9 +102,9 @@ public class Driver{
 	    	}
 		}
     }
-	// NEED HELP TO SEPERATE DATA BY LINE
 	public static void load(String filename, GroupData d2) 
     {
+
 		try
 		{
 			FileReader fr = new FileReader(filename);
@@ -112,7 +112,11 @@ public class Driver{
 			String line;
 			while((line = br.readLine()) != null)
 			{
-				System.out.println(line);
+				String[] items = line.split(",");
+				long id = Integer.parseInt(items[0]);
+				String name = items[1];
+				String clubs = items[2];
+				System.out.println("\n "+ id + "\n" + name +"\n" + clubs);
 			}
 			br.close();
 			fr.close();
