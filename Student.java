@@ -1,4 +1,4 @@
-public class Student{
+public class Student implements DataItem<E>{
 
     public long idNumber;
     public String name;
