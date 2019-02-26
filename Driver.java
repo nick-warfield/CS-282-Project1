@@ -124,15 +124,15 @@ public class Driver{
 
 	public static boolean[] convert(String s)
 	{
-		boolean[] arr = new boolean[s.length()];
+		boolean[] arr = new boolean[s.length()-1];
 
-		for(int i = 0; i < s.length(); i++)
+		for(int i = 1; i < s.length(); i++)
 		{
 			if(s.charAt(i) == 'T')
 			{
-				arr[i] = true;
+				arr[i-1] = true;
 			} else {
-				arr[i] = false;
+				arr[i-1] = false;
 			}
 		}
 		return arr;
