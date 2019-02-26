@@ -16,24 +16,7 @@ public class Driver{
     {
 		Scanner in = new Scanner(System.in);
 		GroupData d1 = d2;
-		while(true)
-		{
-			System.out.print("\nPlease enter a data.txt file to start ");
-			String line = in.nextLine();
-			String[] file = line.split(" "); // split line
-			String fileName = file[0];
-			if(fileName.equals("data.txt"))
-				{
-					load(file[0], d1);
-					break;
-				}
-			else if(fileName.equals("none"))
-	    	{
-	    		break;
-	    	}
-			else 
-				System.out.println("Not valid, please try again");
-		}
+		load("data.txt", d1);
 		while (true)
 		{
 	   		System.out.println("\nPlease enter a command: add, drop, " + 
@@ -47,7 +30,8 @@ public class Driver{
 	   		}
 	   		else if (cmd.equals("add"))
 	   		{
-	      		System.out.println("Enter student name: ");
+	      		
+				System.out.println("Enter student name: ");
 				
 				System.out.println("Enter student ID: ");
 				
@@ -102,22 +86,32 @@ public class Driver{
 	    	}
 		}
     }
-	public static void load(String filename, GroupData d2) 
+	public static void load(String fileName, GroupData d2) 
     {
-
 		try
 		{
-			FileReader fr = new FileReader(filename);
+			FileReader fr = new FileReader(fileName);
 			BufferedReader br = new BufferedReader(fr);
 			String line;
-			while((line = br.readLine()) != null)
+			Student[] arrStud = new Student[5];
+			int i = 0;
+			if(fileName.equals("data.txt"))
 			{
-				String[] items = line.split(",");
-				long id = Integer.parseInt(items[0]);
-				String name = items[1];
-				String clubs = items[2];
-				System.out.println("\n "+ id + "\n" + name +"\n" + clubs);
+				while((line = br.readLine()) != null)
+				{
+					String[] items = line.split(",");
+					long id = Integer.parseInt(items[0]);
+					String name = items[1];
+					String clubs = items[2]; //need new fuction to change string to boolean[]
+					boolean[] arrB = convert(clubs);
+					//System.out.println("\n "+ id + "\n" + name +"\n" + clubs);
+					arrStud[i] = new Student(id, name, arrB);
+					System.out.println(arrStud[i].toString());
+					i++;
+				}
 			}
+			else 
+				System.out.println("\nERROR: Please save data.txt and run app again");
 			br.close();
 			fr.close();
 		}
@@ -127,4 +121,33 @@ public class Driver{
 	   		System.exit(0);
 		}
     }
+	public static boolean[] convert(String s)
+	{
+		boolean[] b = new boolean[4];
+		if(s.charAt(1) == 'T')
+		{
+			b[0] =true;
+		}
+		else
+			b[0] =false;
+		if(s.charAt(2) == 'T')
+		{
+			b[1] =true;
+		}
+		else
+			b[1] =false;
+		if(s.charAt(3) == 'T')
+		{
+			b[2] =true;
+		}
+		else
+			b[2] =false;
+		if(s.charAt(4) == 'T')
+		{
+			b[3] =true;
+		}
+		else
+			b[3] =false;
+		return b;
+	}
 }
