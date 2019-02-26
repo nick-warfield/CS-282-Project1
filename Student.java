@@ -13,7 +13,7 @@ public class Student implements DataItem<Student> {
 
     public String toString()
     {
-        String string = idNumber + ", " + name + ", ";
+        String string = idNumber + "," + name + ", ";
         for(int i = 0; i < inGroup.length; i++)
         {
             if(inGroup[i] == true)

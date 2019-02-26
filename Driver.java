@@ -102,7 +102,7 @@ public class Driver{
 					String[] items = line.split(",");
 					long id = Integer.parseInt(items[0]);
 					String name = items[1];
-					String clubs = items[2]; //need new fuction to change string to boolean[]
+					String clubs = items[2];
 					boolean[] arrB = convert(clubs);
 					//System.out.println("\n "+ id + "\n" + name +"\n" + clubs);
 					arrStud[i] = new Student(id, name, arrB);
@@ -121,33 +121,20 @@ public class Driver{
 	   		System.exit(0);
 		}
     }
+
 	public static boolean[] convert(String s)
 	{
-		boolean[] b = new boolean[4];
-		if(s.charAt(1) == 'T')
+		boolean[] arr = new boolean[s.length()];
+
+		for(int i = 0; i < s.length(); i++)
 		{
-			b[0] =true;
+			if(s.charAt(i) == 'T')
+			{
+				arr[i] = true;
+			} else {
+				arr[i] = false;
+			}
 		}
-		else
-			b[0] =false;
-		if(s.charAt(2) == 'T')
-		{
-			b[1] =true;
-		}
-		else
-			b[1] =false;
-		if(s.charAt(3) == 'T')
-		{
-			b[2] =true;
-		}
-		else
-			b[2] =false;
-		if(s.charAt(4) == 'T')
-		{
-			b[3] =true;
-		}
-		else
-			b[3] =false;
-		return b;
+		return arr;
 	}
 }
