@@ -58,4 +58,18 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		}
 		return string;
 	}
+
+	//counts amount of separate groups. will return number of groups that the student with most groups is in.
+	public int numOfGroups()
+    {
+        int totalGroups = 0;
+        for(Student s : students)
+        {
+            if(s.numOfGroups() > totalGroups)
+            {
+                totalGroups = s.numOfGroups();
+            }
+        }
+        return totalGroups;
+    }
 }

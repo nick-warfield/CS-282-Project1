@@ -57,12 +57,19 @@ public class Driver{
 	    	}
 			else if(cmd.equals("members"))
 	    	{
-	    		d2.toString();
 	    		System.out.println("Enter Group #: ");
 	    		System.out.print('>');
 	    		int groupnum = in.nextInt();
 	    		in.nextLine();
-	    		System.out.print(d2.members(groupnum));
+
+	    		//error handling and print
+	    		if(groupnum < 0 || groupnum >= d2.numOfGroups())
+				{
+					System.out.println("Group does not exist.");
+				} else {
+					System.out.print(d2.members(groupnum));
+				}
+
 	    	}
 			else if(cmd.equals("largest"))
 	    	{

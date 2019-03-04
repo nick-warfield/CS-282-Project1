@@ -44,6 +44,12 @@ public class Student implements DataItem<Student> {
         return inGroup[group];
     }
 
+    //returns # of groups the student is a member of
+    public int numOfGroups()
+    {
+        return inGroup.length;
+    }
+
     public long getIdNumber()
     {
         return idNumber;
@@ -58,5 +64,7 @@ public class Student implements DataItem<Student> {
     {
         return inGroup;
     }
+
+
 
 }
