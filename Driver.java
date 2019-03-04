@@ -21,6 +21,7 @@ public class Driver{
 		{
 	   		System.out.println("\nPlease enter a command: add, drop, " + 
 	   			"find, size, members, largest, smallest, \ncover, help and quit.");
+	   		System.out.print('>');
 	   		String line = in.nextLine();
 	   		String[] t = line.split(" "); // split line
 	   		String cmd = t[0];
@@ -56,7 +57,12 @@ public class Driver{
 	    	}
 			else if(cmd.equals("members"))
 	    	{
+	    		d2.toString();
 	    		System.out.println("Enter Group #: ");
+	    		System.out.print('>');
+	    		int groupnum = in.nextInt();
+	    		in.nextLine();
+	    		System.out.print(d2.members(groupnum));
 	    	}
 			else if(cmd.equals("largest"))
 	    	{
@@ -93,7 +99,6 @@ public class Driver{
 			FileReader fr = new FileReader(fileName);
 			BufferedReader br = new BufferedReader(fr);
 			String line;
-			Student[] arrStud = new Student[5];
 			int i = 0;
 			if(fileName.equals("data.txt"))
 			{
@@ -105,10 +110,11 @@ public class Driver{
 					String clubs = items[2];
 					boolean[] arrB = convert(clubs);
 					//System.out.println("\n "+ id + "\n" + name +"\n" + clubs);
-					arrStud[i] = new Student(id, name, arrB);
-					System.out.println(arrStud[i].toString());
+					Student stud = new Student(id, name, arrB);
+					d2.insert(stud);
 					i++;
 				}
+				System.out.println(d2.toString());
 			}
 			else 
 				System.out.println("\nERROR: Please save data.txt and run app again");

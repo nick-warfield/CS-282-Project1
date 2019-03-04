@@ -35,7 +35,18 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 
 	public int sizeLargest() { return 0; }
 	public int sizeSmallest() { return 0; }
-	public String members(int num) { return "0"; }
+	public String members(int num)
+    {
+        String members = "";
+	    for(Student s : students)
+        {
+            if(s.memberOfGroup(num))
+            {
+                members += s.toString() + '\n';
+            }
+        }
+        return members;
+    }
 	public int numToReachAll() { return 0; }
 
 	public String toString()
