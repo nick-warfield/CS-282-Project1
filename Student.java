@@ -41,7 +41,13 @@ public class Student implements DataItem<Student> {
 
     public boolean memberOfGroup(int group)
     {
-        return inGroup[group];
+        if(group < inGroup.length)
+        {
+            return inGroup[group];
+        } else {
+            return false;
+        }
+
     }
 
     //returns # of groups the student is a member of

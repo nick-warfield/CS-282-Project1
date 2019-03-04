@@ -15,8 +15,7 @@ public class Driver{
 	public static void commandline(GroupData d2)
     {
 		Scanner in = new Scanner(System.in);
-		GroupData d1 = d2;
-		load("data.txt", d1);
+		load("data.txt", d2);
 		while (true)
 		{
 	   		System.out.println("\nPlease enter a command: add, drop, " + 
