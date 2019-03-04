@@ -7,15 +7,15 @@ public class Driver{
 	public static void main(String[] args)
     {
     	
-    	GroupData d2= new GroupData();
-		commandline(d2);
+    	GroupData data= new GroupData();
+		commandline(data);
 		
 	}
 	//menu to call all operations from command line
-	public static void commandline(GroupData d2)
+	public static void commandline(GroupData data)
     {
 		Scanner in = new Scanner(System.in);
-		load("data.txt", d2);
+		load("data.txt", data);
 		while (true)
 		{
 	   		System.out.println("\nPlease enter a command: add, drop, " + 
@@ -62,11 +62,11 @@ public class Driver{
 	    		in.nextLine();
 
 	    		//error handling and print
-	    		if(groupnum < 0 || groupnum >= d2.numOfGroups())
+	    		if(groupnum < 0 || groupnum >= data.numOfGroups())
 				{
 					System.out.println("Group does not exist.");
 				} else {
-					System.out.print(d2.members(groupnum));
+					System.out.print(data.members(groupnum));
 				}
 
 	    	}
@@ -98,7 +98,7 @@ public class Driver{
 	    	}
 		}
     }
-	public static void load(String fileName, GroupData d2) 
+	public static void load(String fileName, GroupData data)
     {
 		try
 		{
@@ -117,10 +117,10 @@ public class Driver{
 					boolean[] arrB = convert(clubs);
 					//System.out.println("\n "+ id + "\n" + name +"\n" + clubs);
 					Student stud = new Student(id, name, arrB);
-					d2.insert(stud);
+					data.insert(stud);
 					i++;
 				}
-				System.out.println(d2.toString());
+				System.out.println(data.toString());
 			}
 			else 
 				System.out.println("\nERROR: Please save data.txt and run app again");
