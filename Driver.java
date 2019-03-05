@@ -85,12 +85,11 @@ public class Driver{
 			}
 			else if(cmd.equals("size"))
 			{
-				int group;
 				while(true)
 				{
 					System.out.println("Enter Group #: ");
 					System.out.print('>');
-					group = in.nextInt();
+					int group = in.nextInt();
 					in.nextLine();
 					if(group >= 0 && group < data.numOfGroups())
 					{
@@ -107,18 +106,22 @@ public class Driver{
 			}
 			else if(cmd.equals("members"))
 			{
-				System.out.println("Enter Group #: ");
-				System.out.print('>');
-				int groupnum = in.nextInt();
-				in.nextLine();
-
-				//error handling and print
-				if(groupnum < 0 || groupnum >= data.numOfGroups())
+				while(true)
 				{
-					System.out.println("Group does not exist.");
-				} else {
-					System.out.print(data.members(groupnum));
+					System.out.println("Enter Group #: ");
+					System.out.print('>');
+					int groupnum = in.nextInt();
+					in.nextLine();
+
+					if(groupnum >= 0 && groupnum < data.numOfGroups())
+					{
+						System.out.print(data.members(groupnum));
+						break;
+					} else {
+						System.out.println("ERROR: Group does not exist.");
+					}
 				}
+
 
 			}
 			else if(cmd.equals("largest"))
