@@ -59,10 +59,12 @@ public class Driver{
 					String clubs = " " + in.nextLine();
 					clubArr = convert(clubs);
 
-					if(data.numOfGroups() == clubArr.length)
+					if(clubArr != null && data.numOfGroups() == clubArr.length)
 					{
 						break;
-					} else {
+					} else if(clubArr == null){
+						System.out.println("ERROR: Club input should only be T and F characters.");
+					} else if(data.numOfGroups() != clubArr.length) {
 						System.out.println("ERROR: Must list declarations for " + data.numOfGroups() + " groups.");
 					}
 				}
@@ -99,10 +101,6 @@ public class Driver{
 						System.out.println("ERROR: Group does not exist");
 					}
 				}
-
-
-
-
 			}
 			else if(cmd.equals("members"))
 			{
@@ -136,7 +134,7 @@ public class Driver{
 			{
 
 			}
-			else if(cmd.equals("print"))
+			else if(cmd.equals("print"))  // I added this to help with checking for errors - John
 			{
 				System.out.println(data.toString());
 			}
@@ -174,6 +172,11 @@ public class Driver{
 					String name = items[1];
 					String clubs = items[2];
 					boolean[] arrB = convert(clubs);
+					if(arrB == null)
+					{
+						System.out.println("ERROR: Club input should only be T and F characters.");
+						System.exit(0);
+					}
 					Student stud = new Student(id, name, arrB);
 					data.insert(stud);
 					i++;
@@ -201,15 +204,24 @@ public class Driver{
 	{
 		boolean[] arr = new boolean[s.length()-1];
 
+		boolean goodConvert = true;
 		for(int i = 1; i < s.length(); i++)
 		{
 			if(s.charAt(i) == 'T')
 			{
 				arr[i-1] = true;
-			} else {
+			} else if(s.charAt(i) == 'F'){
 				arr[i-1] = false;
+			} else {
+				goodConvert = false;
 			}
 		}
-		return arr;
+		if(goodConvert)
+		{
+			return arr;
+		} else {
+			return null;
+		}
+
 	}
 }
