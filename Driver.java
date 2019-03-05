@@ -18,7 +18,7 @@ public class Driver{
 		while (true)
 		{
 			System.out.println("\nPlease enter a command: add, drop, " +
-				"find, size, members, largest, smallest, \ncover, help and quit.");
+				"find, size, members, largest, smallest, \ncover, help, print and quit.");
 			System.out.print('>');
 			String line = in.nextLine();
 			String[] t = line.split(" "); // split line
@@ -29,17 +29,51 @@ public class Driver{
 			}
 			else if (cmd.equals("add"))
 			{
-
+				//collect name
 				System.out.println("Enter student name: ");
-				
-				System.out.println("Enter student ID: ");
-				
-				System.out.println("Enter groups student is in: ");
-				
+				System.out.print('>');
+				String name = " " + in.nextLine();
+
+				//collect ID#
+				long id;
+				while(true)
+				{
+					System.out.println("Enter student ID: ");
+					System.out.print('>');
+					id = in.nextLong();
+					in.nextLine();
+					if(id >= 0 && id < 1000000000)
+					{
+						break;
+					} else {
+						System.out.println("ERROR: Invalid student ID.");
+					}
+				}
+
+				//collect clubs
+				boolean[]clubArr;
+				while(true)
+				{
+					System.out.println("Enter groups student is in: ");
+					System.out.print('>');
+					String clubs = " " + in.nextLine();
+					clubArr = convert(clubs);
+
+					if(data.numOfGroups() == clubArr.length)
+					{
+						break;
+					} else {
+						System.out.println("ERROR: Must list declarations for " + data.numOfGroups() + " groups.");
+					}
+				}
+
+				//add student
+				Student student = new Student(id, name, clubArr);
+				data.insert(student);
 			}
 			else if(cmd.equals("drop"))
 			{
-			System.out.println("Enter student ID: ");
+				System.out.println("Enter student ID: ");
 				
 
 			}
@@ -81,6 +115,10 @@ public class Driver{
 			{
 
 			}
+			else if(cmd.equals("print"))
+			{
+				System.out.println(data.toString());
+			}
 			else if(cmd.equals("help"))
 			{
 				System.out.println("\nYour options are:" +
@@ -93,6 +131,7 @@ public class Driver{
 					"\nsmallest (outputs the smallest size of any group)" +
 					"\ncover (outputs the minimum number of groups which" +
 					"cover all students)" +
+					"\nprint (outputs complete list of students)" +
 					"\nquit (ends the program)\n");
 			}
 		}
