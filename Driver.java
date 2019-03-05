@@ -64,7 +64,10 @@ public class Driver{
 					String clubs = " " + in.nextLine();
 					clubArr = convert(clubs);
 
-					if((clubArr != null) && (data.numOfGroups() == clubArr.length) || (data.size() == 0))
+					//I'm sure this if statement can be cleaned up, I'll look at it again later - John
+					if(     (clubArr != null) &&
+							(data.numOfGroups() == clubArr.length) ||
+							(data.size() == 0))
 					{
 						break;
 					} else if(clubArr == null){
