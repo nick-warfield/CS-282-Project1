@@ -85,7 +85,25 @@ public class Driver{
 			}
 			else if(cmd.equals("size"))
 			{
-				System.out.println("Enter Group #: ");
+				int group;
+				while(true)
+				{
+					System.out.println("Enter Group #: ");
+					System.out.print('>');
+					group = in.nextInt();
+					in.nextLine();
+					if(group >= 0 && group < data.numOfGroups())
+					{
+						System.out.println("Size of group " + group + ": " + data.numInGroup(group));
+						break;
+					} else {
+						System.out.println("ERROR: Group does not exist");
+					}
+				}
+
+
+
+
 			}
 			else if(cmd.equals("members"))
 			{
