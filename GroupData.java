@@ -36,17 +36,17 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 	public int sizeLargest() { return 0; }
 	public int sizeSmallest() { return 0; }
 	public String members(int num)
-    {
-        String members = "";
-	    for(Student s : students)
-        {
-            if(s.memberOfGroup(num))
-            {
-                members += s.toString() + '\n';
-            }
-        }
-        return members;
-    }
+	{
+		String members = "";
+		for(Student s : students)
+		{
+			if(s.memberOfGroup(num))
+			{
+				members += s.toString() + '\n';
+			}
+		}
+		return members;
+	}
 	public int numToReachAll() { return 0; }
 
 	public String toString()
@@ -59,17 +59,26 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return string;
 	}
 
-	//counts amount of separate groups. will return number of groups that the student with most groups is in.
+	//returns size of club array -- needed for handling call for group that doesn't exist in Driver
 	public int numOfGroups()
-    {
-        int totalGroups = 0;
-        for(Student s : students)
-        {
-            if(s.numOfGroups() > totalGroups)
-            {
-                totalGroups = s.numOfGroups();
-            }
-        }
-        return totalGroups;
-    }
+	{
+		if(students.size() > 0)
+		{
+			return students.get(0).numOfGroups();
+		}
+		return 0;
+	}
+
+	public boolean clubLengthCheck()
+	{
+		boolean equalClubLength = true;
+		for(Student s : students)
+		{
+			if(numOfGroups() != s.numOfGroups())
+			{
+				equalClubLength = false;
+			}
+		}
+		return equalClubLength;
+	}
 }

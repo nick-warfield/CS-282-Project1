@@ -5,86 +5,85 @@ public class Driver{
 	
 	
 	public static void main(String[] args)
-    {
-    	
-    	GroupData data= new GroupData();
+	{
+		GroupData data= new GroupData();
+		load("data.txt", data);
 		commandline(data);
 		
 	}
 	//menu to call all operations from command line
 	public static void commandline(GroupData data)
-    {
+	{
 		Scanner in = new Scanner(System.in);
-		load("data.txt", data);
 		while (true)
 		{
-	   		System.out.println("\nPlease enter a command: add, drop, " + 
-	   			"find, size, members, largest, smallest, \ncover, help and quit.");
-	   		System.out.print('>');
-	   		String line = in.nextLine();
-	   		String[] t = line.split(" "); // split line
-	   		String cmd = t[0];
-	   		if (cmd.equals("quit"))
-	   		{
-	   			break;
-	   		}
-	   		else if (cmd.equals("add"))
-	   		{
-	      		
+			System.out.println("\nPlease enter a command: add, drop, " +
+				"find, size, members, largest, smallest, \ncover, help and quit.");
+			System.out.print('>');
+			String line = in.nextLine();
+			String[] t = line.split(" "); // split line
+			String cmd = t[0];
+			if (cmd.equals("quit"))
+			{
+				break;
+			}
+			else if (cmd.equals("add"))
+			{
+
 				System.out.println("Enter student name: ");
 				
 				System.out.println("Enter student ID: ");
 				
 				System.out.println("Enter groups student is in: ");
 				
-	    	}
-	    	else if(cmd.equals("drop"))
-	    	{
-	    		System.out.println("Enter student ID: ");
+			}
+			else if(cmd.equals("drop"))
+			{
+			System.out.println("Enter student ID: ");
 				
-				
-	    	}
-	    	else if(cmd.equals("find"))
-	    	{
-	    		System.out.println("Enter student ID: ");
+
+			}
+			else if(cmd.equals("find"))
+			{
+				System.out.println("Enter student ID: ");
 				
 				//System.out.println();
-	    	}
-	    	else if(cmd.equals("size"))
-	    	{
-	    		System.out.println("Enter Group #: ");
-	    	}
+			}
+			else if(cmd.equals("size"))
+			{
+				System.out.println("Enter Group #: ");
+			}
 			else if(cmd.equals("members"))
-	    	{
-	    		System.out.println("Enter Group #: ");
-	    		System.out.print('>');
-	    		int groupnum = in.nextInt();
-	    		in.nextLine();
+			{
+				System.out.println("Enter Group #: ");
+				System.out.print('>');
+				int groupnum = in.nextInt();
+				in.nextLine();
 
-	    		//error handling and print
-	    		if(groupnum < 0 || groupnum >= data.numOfGroups())
+				//error handling and print
+				if(groupnum < 0 || groupnum >= data.numOfGroups())
 				{
 					System.out.println("Group does not exist.");
 				} else {
 					System.out.print(data.members(groupnum));
 				}
 
-	    	}
+			}
 			else if(cmd.equals("largest"))
-	    	{
-	    		
-	    	}
+			{
+
+			}
 			else if(cmd.equals("smallest"))
-	    	{
-	    		
-	    	}
+			{
+
+			}
 			else if(cmd.equals("cover"))
-	    	{
-	    		
-	    	}
+			{
+
+			}
 			else if(cmd.equals("help"))
-	    	{
-	    		System.out.println("\nYour options are:" +
+			{
+				System.out.println("\nYour options are:" +
 					"\nadd (adds a student)" +
 					"\ndrop (drops a student)" +
 					"\nfind (outputs a student)" +
@@ -95,11 +94,11 @@ public class Driver{
 					"\ncover (outputs the minimum number of groups which" +
 					"cover all students)" +
 					"\nquit (ends the program)\n");
-	    	}
+			}
 		}
-    }
+	}
 	public static void load(String fileName, GroupData data)
-    {
+	{
 		try
 		{
 			FileReader fr = new FileReader(fileName);
@@ -115,24 +114,28 @@ public class Driver{
 					String name = items[1];
 					String clubs = items[2];
 					boolean[] arrB = convert(clubs);
-					//System.out.println("\n "+ id + "\n" + name +"\n" + clubs);
 					Student stud = new Student(id, name, arrB);
 					data.insert(stud);
 					i++;
 				}
+				if(!data.clubLengthCheck())
+				{
+					System.out.println("ERROR: Number of clubs listed for each student must be equal.");
+					System.exit(0);
+				}
 				System.out.println(data.toString());
 			}
-			else 
+			else
 				System.out.println("\nERROR: Please save data.txt and run app again");
 			br.close();
 			fr.close();
 		}
 		catch (Exception exception1)
 		{
-	   		System.out.println("Error opening input file");
-	   		System.exit(0);
+			System.out.println("Error opening input file");
+			System.exit(0);
 		}
-    }
+	}
 
 	public static boolean[] convert(String s)
 	{
