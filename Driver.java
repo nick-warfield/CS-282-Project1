@@ -42,7 +42,12 @@ public class Driver{
 					System.out.print('>');
 					id = in.nextLong();
 					in.nextLine();
-					if(id >= 0 && id < 1000000000)
+
+					if(data.find(id) != null)
+					{
+						System.out.println("ERROR: Student ID already exists.");
+					}
+					else if(id >= 0 && id < 1000000000)
 					{
 						break;
 					} else {
@@ -76,14 +81,39 @@ public class Driver{
 			else if(cmd.equals("drop"))
 			{
 				System.out.println("Enter student ID: ");
-				
+				System.out.print('>');
+				long id = in.nextLong();
+				in.nextLine();
 
+				Student student = data.find(id);
+				if(student != null)
+				{
+					System.out.println("Removing: " + student.toString());
+					data.delete(student);
+				} else {
+					System.out.println("Student ID does not exist");
+				}
 			}
 			else if(cmd.equals("find"))
 			{
-				System.out.println("Enter student ID: ");
-				
-				//System.out.println();
+				while(true)
+				{
+					System.out.println("Enter student ID: ");
+					System.out.print('>');
+					long id = in.nextLong();
+					in.nextLine();
+
+					Student student = data.find(id);
+					if(student != null)
+					{
+						System.out.println(student.toString());
+						break;
+					} else {
+						System.out.println("ERROR: Student ID does not exist.");
+					}
+				}
+
+
 			}
 			else if(cmd.equals("size"))
 			{

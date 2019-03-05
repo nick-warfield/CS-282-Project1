@@ -16,13 +16,27 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		students.remove(item);
 	}
 
+/*
 	public Student find(Student item)
 	{
 		int index = students.indexOf(item);
 		if (index == -1) { return null; }
 		return students.get(index);
 	}
+*/
 
+	public Student find(long id)
+	{
+		for(Student s : students)
+		{
+			if(s.getIdNumber() == id)
+			{
+				return s;
+			}
+		}
+		return null;
+
+	}
 	public int numInGroup(int num)
 	{
 		int count = 0;
