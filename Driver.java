@@ -65,7 +65,7 @@ public class Driver{
 					clubArr = convert(clubs);
 
 					//I'm sure this if statement can be cleaned up, I'll look at it again later - John
-					if(     (clubArr != null) &&
+					if((clubArr != null) &&
 							(data.numOfGroups() == clubArr.length) ||
 							(data.size() == 0))
 					{
