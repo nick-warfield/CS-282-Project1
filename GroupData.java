@@ -95,4 +95,9 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		}
 		return equalClubLength;
 	}
+
+	public int size()
+	{
+		return students.size();
+	}
 }

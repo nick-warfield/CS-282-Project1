@@ -64,12 +64,12 @@ public class Driver{
 					String clubs = " " + in.nextLine();
 					clubArr = convert(clubs);
 
-					if(clubArr != null && data.numOfGroups() == clubArr.length)
+					if((clubArr != null) && (data.numOfGroups() == clubArr.length) || (data.size() == 0))
 					{
 						break;
 					} else if(clubArr == null){
 						System.out.println("ERROR: Club input should only be T and F characters.");
-					} else if(data.numOfGroups() != clubArr.length) {
+					} else if(data.numOfGroups() != clubArr.length && data.size() != 0) {
 						System.out.println("ERROR: Must list declarations for " + data.numOfGroups() + " groups.");
 					}
 				}
