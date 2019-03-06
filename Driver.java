@@ -175,7 +175,16 @@ public class Driver{
 			}
 			else if(cmd.equals("cover"))
 			{
-				
+				/*
+				I'm thinking there are 3 scenarios where group # can be consolidated:
+					1. one group only has F's - it can be eliminated
+					2. If one group "contains" another... i.e. if one group has all the
+						members of another group within it. Sometimes this would mean two groups
+						have the same members, sometimes it would mean a larger group "contains"
+						the same members as smaller group, therefore the larger group also "covers"
+						the smaller group.
+				- John
+				 */
 			}
 			else if(cmd.equals("print"))  // I added this to help with checking for errors - John
 			{
