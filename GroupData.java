@@ -47,8 +47,42 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return count;
 	}
 
-	public int sizeLargest() { return 0; }
-	public int sizeSmallest() { return 0; }
+	public int sizeLargest() 
+	{ 
+		int[] groupTot = totals();
+		int  largest = groupTot[0];
+		int i = 0;
+		while(i<groupTot.length)
+		{
+			if(groupTot[i]>largest)
+			{
+				largest = groupTot[i];
+			}
+			i++;
+		}
+		return largest; 
+	}
+	public int sizeSmallest() 
+	{ 
+		int[] groupTot = totals();
+		int  smallest = groupTot[0];
+		int i = 1;
+		while(smallest==0 && i<groupTot.length)
+		{
+			smallest = groupTot[i];
+			i++;
+		}
+		//int i = 0;
+		while(i<groupTot.length)
+		{
+			if(groupTot[i]<smallest)
+			{
+				smallest = groupTot[i];
+			}
+			i++;
+		}
+		return smallest; 
+	}
 	public String members(int num)
 	{
 		String members = "";
@@ -99,5 +133,20 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 	public int size()
 	{
 		return students.size();
+	}
+	public int[] totals()
+	{
+		int[] arrOfMembersPerGroup = new int[(students.get(0).numOfGroups())];
+		for (Student s : students)
+		{
+			for(int i=0; i< (students.get(0).numOfGroups()); i++)
+			{
+				if(s.memberOfGroup(i))
+				{
+					arrOfMembersPerGroup[i]++;
+				}
+			}
+		}
+		return arrOfMembersPerGroup;
 	}
 }
