@@ -148,7 +148,8 @@ public class Driver{
 					{
 						System.out.print(data.members(groupnum));
 						break;
-					} else {
+					} else 
+					{
 						System.out.println("ERROR: Group does not exist.");
 					}
 				}
@@ -157,15 +158,29 @@ public class Driver{
 			}
 			else if(cmd.equals("largest"))
 			{
-
+				if(data.numOfGroups() != 0)
+				{
+					System.out.println("" +data.sizeLargest());
+				}
+				else
+				{
+					System.out.println("ERROR: Groups do not exist.");
+				}
 			}
 			else if(cmd.equals("smallest"))
 			{
-
+				if(data.numOfGroups() != 0)
+				{
+					System.out.println("" +data.sizeSmallest());
+				}
+				else
+				{
+					System.out.println("ERROR: Groups do not exist.");
+				}
 			}
 			else if(cmd.equals("cover"))
 			{
-
+				
 			}
 			else if(cmd.equals("print"))  // I added this to help with checking for errors - John
 			{
