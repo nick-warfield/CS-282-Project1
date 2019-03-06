@@ -42,7 +42,7 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		int count = 0;
 		for (Student s : students)
 		{
-			if (s.memberOfGroup(num)) { count++; }
+			if (s.memberOfGroup(num - 1)) { count++; }
 		}
 		return count;
 	}
@@ -88,7 +88,7 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		String members = "";
 		for(Student s : students)
 		{
-			if(s.memberOfGroup(num))
+			if(s.memberOfGroup(num - 1))
 			{
 				members += s.toString() + '\n';
 			}

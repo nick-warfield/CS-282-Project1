@@ -9,7 +9,6 @@ public class Driver{
 		GroupData data= new GroupData();
 		load("data.txt", data);
 		commandline(data);
-		
 	}
 	//menu to call all operations from command line
 	public static void commandline(GroupData data)
@@ -115,8 +114,6 @@ public class Driver{
 						System.out.println("ERROR: Student ID does not exist.");
 					}
 				}
-
-
 			}
 			else if(cmd.equals("size"))
 			{
@@ -126,7 +123,7 @@ public class Driver{
 					System.out.print('>');
 					int group = in.nextInt();
 					in.nextLine();
-					if(group >= 0 && group < data.numOfGroups())
+					if(group > 0 && group <= data.numOfGroups())
 					{
 						System.out.println("Size of group " + group + ": " + data.numInGroup(group));
 						break;
@@ -144,7 +141,7 @@ public class Driver{
 					int groupnum = in.nextInt();
 					in.nextLine();
 
-					if(groupnum >= 0 && groupnum < data.numOfGroups())
+					if(groupnum > 0 && groupnum <= data.numOfGroups())
 					{
 						System.out.print(data.members(groupnum));
 						break;
@@ -153,8 +150,6 @@ public class Driver{
 						System.out.println("ERROR: Group does not exist.");
 					}
 				}
-
-
 			}
 			else if(cmd.equals("largest"))
 			{
@@ -270,6 +265,5 @@ public class Driver{
 		} else {
 			return null;
 		}
-
 	}
 }
