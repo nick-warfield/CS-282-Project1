@@ -1,3 +1,11 @@
+/*
+COMP282 Section 16304 Project 1
+Group members:
+Nicholas Warfield
+Javier Aguayo
+John Wiesenfeld
+ */
+
 import java.util.Vector;
 import java.util.Arrays;
 
