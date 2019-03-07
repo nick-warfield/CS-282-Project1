@@ -67,13 +67,12 @@ public class Driver{
 			String clubs = " " + in.nextLine();
 			clubArr = convert(clubs);
 
-			//I'm sure this if statement can be cleaned up, I'll look at it again later - John
-			if((clubArr != null) && (data.numOfGroups() == clubArr.length)) //(data.size() == 0))
+			if((clubArr != null) && (data.numOfGroups() == clubArr.length))
 			{
 				break;
 			} else if(clubArr == null){
 				System.out.println("ERROR: Club input should only be T and F characters.");
-			} else if(data.numOfGroups() != clubArr.length /*&& data.size() != 0*/) {
+			} else if(data.numOfGroups() != clubArr.length) {
 				System.out.println("ERROR: Must list declarations for " + data.numOfGroups() + " groups.");
 			}
 		}
@@ -452,7 +451,7 @@ public class Driver{
 					data.insert(stud);
 					i++;
 				}
-				if(false) //!data.clubLengthCheck())
+				if(false)
 				{
 					System.out.println("ERROR: Number of clubs listed for each student must be equal.");
 					System.exit(0);
