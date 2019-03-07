@@ -3,12 +3,18 @@ import java.util.Vector;
 public class GroupData implements DataStructOfItemsInGroups<Student>
 {
 	private Vector<Student> students;
+	private int groupCount = 0;
 
 	public GroupData() { students = new Vector<Student>(); }
 
-	public void insert(Student item)
+	public void insert(Student item) throws IllegalArgumentException
 	{
+		if (item.getInGroup().length != groupCount && !students.isEmpty())
+		{
+			throw new IllegalArgumentException("Student does not have the right number of groups");
+		}
 		students.addElement(item);
+		groupCount = item.getInGroup().length;
 	}
 
 	public void delete(Student item)
@@ -16,15 +22,14 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		students.remove(item);
 	}
 
-/*
 	public Student find(Student item)
 	{
 		int index = students.indexOf(item);
 		if (index == -1) { return null; }
 		return students.get(index);
 	}
-*/
 
+	// deprecieated
 	public Student find(long id)
 	{
 		for(Student s : students)
@@ -35,8 +40,8 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 			}
 		}
 		return null;
-
 	}
+
 	public int numInGroup(int num)
 	{
 		int count = 0;
@@ -97,6 +102,8 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 	}
 	public int numToReachAll() { return 0; }
 
+	public int numOfGroups() { return groupCount; }
+
 	public String toString()
 	{
 		String string = "";
@@ -107,39 +114,13 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return string;
 	}
 
-	//returns size of club array -- needed for handling call for group that doesn't exist in Driver
-	public int numOfGroups()
-	{
-		if(students.size() > 0)
-		{
-			return students.get(0).numOfGroups();
-		}
-		return 0;
-	}
-
-	public boolean clubLengthCheck()
-	{
-		boolean equalClubLength = true;
-		for(Student s : students)
-		{
-			if(numOfGroups() != s.numOfGroups())
-			{
-				equalClubLength = false;
-			}
-		}
-		return equalClubLength;
-	}
-
-	public int size()
-	{
-		return students.size();
-	}
+	// depreciated
 	public int[] totals()
 	{
-		int[] arrOfMembersPerGroup = new int[(students.get(0).numOfGroups())];
+		int[] arrOfMembersPerGroup = new int[groupCount];
 		for (Student s : students)
 		{
-			for(int i=0; i< (students.get(0).numOfGroups()); i++)
+			for(int i=0; i< groupCount; i++)
 			{
 				if(s.memberOfGroup(i))
 				{
