@@ -147,21 +147,15 @@ public class Driver{
 
 	public static void members(GroupData data, Scanner in)
 	{
-		while(true)
-		{
-			System.out.println("Enter Group #: ");
-			System.out.print('>');
-			int groupnum = in.nextInt();
-			in.nextLine();
+		System.out.println("Enter Group #: ");
+		System.out.print('>');
+		int groupnum = in.nextInt();
+		in.nextLine();
 
-			if(groupnum > 0 && groupnum <= data.numOfGroups())
-			{
-				System.out.print(data.members(groupnum));
-				break;
-			} else 
-			{
-				System.out.println("ERROR: Group does not exist.");
-			}
+		if (groupnum > 0 && groupnum <= data.numOfGroups()) {
+			System.out.print(data.members(groupnum));
+		} else {
+			System.out.println("ERROR: Group does not exist.");
 		}
 	}
 
@@ -191,7 +185,7 @@ public class Driver{
 
 	public static void cover(GroupData data)
 	{
-		System.out.println(data.numToReachAll());
+		System.out.println("Minimum # of groups to cover all members: " + data.numToReachAll());
 	}
 
 	public static void print(GroupData data)
