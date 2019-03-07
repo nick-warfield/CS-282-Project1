@@ -46,10 +46,10 @@ public class Driver{
 			id = in.nextLong();
 			in.nextLine();
 
-			Student student = new Student(id);
-			student = data.find(student);
+			Student stud = new Student(id);
+			stud = data.find(stud);
 
-			if(student != null)
+			if(stud != null)
 			{
 				System.out.println("ERROR: Student ID already exists.");
 			}
@@ -82,14 +82,6 @@ public class Driver{
 			} else {
 				System.out.println("ERROR: Club input should only be T and F characters.");
 			}
-		}
-
-		//add student
-		Student student = new Student(id, name, clubArr);
-		try {
-			data.insert(student);
-		} catch(IllegalArgumentException ex) {
-			System.out.println(ex);
 		}
 	}
 
