@@ -30,7 +30,6 @@ public class Student implements DataItem<Student> {
 				string += "F";
 			}
 		}
-
 		return string;
 	}
 
@@ -50,7 +49,6 @@ public class Student implements DataItem<Student> {
 		} else {
 			return false;
 		}
-
 	}
 
 	public long getIdNumber()
