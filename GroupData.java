@@ -41,27 +41,8 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 			}
 		}
 		return null;
-
-		/*int index = students.indexOf(item);
-		if (index == -1) { return null; }
-		return students.get(index);
-		*/
 	}
 
-	// deprecieated
-/*	public Student find(long id)
-	{
-		for(Student s : students)
-		{
-			if(s.getIdNumber() == id)
-			{
-				return s;
-			}
-		}
-		return null;
-
-	}
-*/
 	public int numInGroup(int num)
 	{
 		int count = 0;
@@ -92,12 +73,6 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		int[] groupTot = totals();
 		int  smallest = groupTot[0];
 		int i = 1;
-		/*while(smallest==0 && i<groupTot.length)
-		{
-			smallest = groupTot[i];
-			i++;
-		}*/
-		//int i = 0;
 		while(i<groupTot.length)
 		{
 			if(groupTot[i]<smallest)
