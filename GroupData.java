@@ -120,84 +120,39 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		}
 		return members;
 	}
+
 	public int numToReachAll() {
 
-		int canBeReducedBy = 0;
+		int numToReachAll = 0;
+
+		//create array to keep track of which students are still not in groups
+		boolean[] studentsBeingConsidered = new boolean[students.size()];
+		Arrays.fill(studentsBeingConsidered, true);
+		//counter of students that have not been grouped yet
+		int studentsLeft = students.size();
+
 
 		//change club affliliations into 2d array for ease of access
-		boolean[][] arr1 = new boolean[groupCount][students.size()];
+		boolean[][] arr = makeArray();
 
-		for(int groups = 0; groups < groupCount; groups++)
+		while(studentsLeft > 0)
 		{
-			for(int studs = 0; studs < students.size(); studs++)
-			{
-				arr1[groups][studs] = students.get(studs).memberOfGroup(groups);
-			}
-		}
+			// find index of group with most members
+			int mostMembers = findMostMembers(arr, studentsBeingConsidered);
 
-		//printing the array just for testing
-		for(int i = 0; i < arr1.length; i++)
-		{
-			for(int j = 0; j < arr1[i].length; j++)
-			{
-				System.out.print(arr1[i][j] + " ");
-			}
-			System.out.print('\n');
-		}
-
-		//using a boolean array, each index is a group to show whether that group is necessary.
-		//if it is empty or can be absorbed by another group, it will change to false.
-		boolean[] goodGroups = new boolean[groupCount];
-		Arrays.fill(goodGroups, true);
-
-		//cancel empty groups
-		for(int i = 0; i < groupCount; i++)
-		{
-			boolean isEmpty = false;
+			//Find which students are in it and remove from studentsBeingConsidered, subtract from studentsLeft
 			for(int j = 0; j < students.size(); j++)
 			{
-				if(arr1[i][j] == true)
+				if(arr[mostMembers][j] && studentsBeingConsidered[j])
 				{
-					isEmpty = false;
+					studentsBeingConsidered[j] = false;
+					studentsLeft--;
 				}
 			}
-			if(isEmpty)
-			{
-				goodGroups[i] = false;
-			}
+			//increase numToReachAll everytime a group is formed until all students are covered (studentsLeft = 0)
+			numToReachAll++;
 		}
-
-		//cancel identical groups
-		for(int i = 0; i < groupCount; i++)
-		{
-			if(goodGroups[i])
-			{
-				for(int j = 0; j < groupCount; j++)
-				{
-					if((i != j) &&
-							goodGroups[j] &&
-							Arrays.equals(arr1[i], arr1[j]))
-					{
-						goodGroups[i] = false;
-					}
-				}
-			}
-		}
-
-		/*
-		Need to compare remainders (absorb j into i if there are no elements that are true in j that are false in i)
-		also need to account for case where the above will work, but j can't be absorbed because it has elements
-		that are present in other groups where it can't be absorbed
-		*/
-
-		//count good groups
-		int good = 0;
-		for(int i = 0; i < goodGroups.length; i++)
-		{
-			if(goodGroups[i]) {good++;}
-		}
-		return good;
-
+		return numToReachAll;
 	}
 
 	public int numOfGroups() { return groupCount; }
@@ -210,6 +165,40 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 			string += s.toString() + '\n';
 		}
 		return string;
+	}
+
+	public boolean[][] makeArray()
+	{
+		boolean[][] arr = new boolean[groupCount][students.size()];
+
+		for(int groups = 0; groups < groupCount; groups++)
+		{
+			for(int studs = 0; studs < students.size(); studs++)
+			{
+				arr[groups][studs] = students.get(studs).memberOfGroup(groups);
+			}
+		}
+		return arr;
+	}
+
+	public int findMostMembers(boolean[][] arr, boolean[] studentsBeingConsidered)
+	{
+		int mostMembers = 0;
+		int mostTrues = 0;
+		for(int i = 0; i < groupCount; i++)
+		{
+			int currentTrues = 0;
+			for(int j = 0; j < students.size(); j++)
+			{
+				if(studentsBeingConsidered[j] && arr[i][j]) {currentTrues++;}
+			}
+			if (currentTrues > mostTrues)
+			{
+				mostMembers = i;
+				mostTrues = currentTrues;
+			}
+		}
+		return mostMembers;
 	}
 
 	// depreciated
