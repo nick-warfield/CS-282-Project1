@@ -12,8 +12,12 @@ public class Student implements DataItem<Student> {
 	private String name;
 	private boolean[] inGroup;
 
-	public Student(long idNumber, String name, boolean[] inGroup)
+	public Student(long idNumber, String name, boolean[] inGroup) throws IllegalArgumentException
 	{
+		if(idNumber < 0 || idNumber >= 1000000000){
+			throw new IllegalArgumentException("ERROR: Invalid student ID");
+		}
+
 		this.idNumber = idNumber;
 		this.name = name;
 		this.inGroup = inGroup;

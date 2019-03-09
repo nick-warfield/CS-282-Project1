@@ -38,67 +38,59 @@ public class Driver{
 		in.close();
 	}
 
-	public static void add(GroupData data, Scanner in)
-	{
-		//collect name
+	public static void add(GroupData data, Scanner in) {
+
+		String name = "";
+		long id;
+		boolean[] clubArr;
+
+		//collect information
 		System.out.println("Enter student name: ");
 		System.out.print('>');
-		String name = " " + in.nextLine();
-
-		//collect ID#
-		long id;
-		while(true)
-		{
-			System.out.println("Enter student ID: ");
-			System.out.print('>');
+		name = " " + in.nextLine();
+		System.out.println("Enter student ID: ");
+		System.out.print('>');
+		try {
 			id = in.nextLong();
 			in.nextLine();
-
-			Student stud = new Student(id);
-			stud = data.find(stud);
-
-			if(stud != null)
-			{
-				System.out.println("ERROR: Student ID already exists.");
-			}
-			else if(id >= 0 && id < 1000000000)
-			{
-				break;
-			} else {
-				System.out.println("ERROR: Invalid student ID.");
-			}
+		} catch (Exception ex) {
+			in.nextLine();
+			System.out.println(ex);
+			return;
+		}
+		System.out.println("Enter groups student is in: ");
+		System.out.print('>');
+		String clubs = " " + in.nextLine();
+		clubArr = data.convert(clubs);
+		if(clubArr == null){
+			System.out.println("ERROR: Clubs affiliations must entered as string of only T's and F's, no spaces.\n" +
+					"For Example: TFFT");
+			return;
 		}
 
-		//collect clubs
-		boolean[]clubArr;
-		while(true)
+		//create student and insert into GroupData
+		try{
+			Student stud = new Student(id, name, clubArr);
+			data.insert(stud);
+		} catch (Exception ex)
 		{
-			System.out.println("Enter groups student is in: ");
-			System.out.print('>');
-			String clubs = " " + in.nextLine();
-			clubArr = convert(clubs);
-
-			if(clubArr != null)
-			{
-				Student student = new Student(id, name, clubArr);
-				try {
-					data.insert(student);
-					break;
-				} catch(IllegalArgumentException ex) {
-					System.out.println(ex);
-				}
-			} else {
-				System.out.println("ERROR: Club input should only be T and F characters.");
-			}
+			System.out.println(ex);
+			return;
 		}
 	}
-
 	public static void drop(GroupData data, Scanner in)
 	{
 		System.out.println("Enter student ID: ");
 		System.out.print('>');
-		long id = in.nextLong();
-		in.nextLine();
+		long id;
+		try {
+			id = in.nextLong();
+			in.nextLine();
+		} catch (Exception ex) {
+			in.nextLine();
+			System.out.println(ex);
+			return;
+		}
 
 		Student student = new Student(id);
 		student = data.find(student);
@@ -108,7 +100,7 @@ public class Driver{
 			System.out.println("Removing: " + student.toString());
 			data.delete(student);
 		} else {
-			System.out.println("Student ID does not exist");
+			System.out.println("ERROR: Student ID does not exist");
 		}
 	}
 
@@ -246,7 +238,7 @@ public class Driver{
 					long id = Integer.parseInt(items[0]);
 					String name = items[1];
 					String clubs = items[2];
-					boolean[] arrB = convert(clubs);
+					boolean[] arrB = data.convert(clubs);
 					if(arrB == null)
 					{
 						System.out.println("ERROR: Club input should only be T and F characters.");
@@ -274,30 +266,6 @@ public class Driver{
 		{
 			System.out.println("Error opening input file");
 			System.exit(0);
-			return null;
-		}
-	}
-
-	public static boolean[] convert(String s)
-	{
-		boolean[] arr = new boolean[s.length()-1];
-
-		boolean goodConvert = true;
-		for(int i = 1; i < s.length(); i++)
-		{
-			if(s.charAt(i) == 'T')
-			{
-				arr[i-1] = true;
-			} else if(s.charAt(i) == 'F'){
-				arr[i-1] = false;
-			} else {
-				goodConvert = false;
-			}
-		}
-		if(goodConvert)
-		{
-			return arr;
-		} else {
 			return null;
 		}
 	}

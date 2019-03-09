@@ -20,7 +20,10 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 	{
 		if (item.getInGroup().length != groupCount && !students.isEmpty())
 		{
-			throw new IllegalArgumentException("Student does not have the right number of groups");
+			throw new IllegalArgumentException("ERROR: Student does not have the right number of groups");
+		} else if (find(item) != null)
+		{
+			throw new IllegalArgumentException("ERROR: Student ID already exists.");
 		}
 		students.addElement(item);
 		groupCount = item.getInGroup().length;
@@ -112,8 +115,11 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 
 		while(studentsLeft > 0)
 		{
-			// find index of group with most members
-			int mostMembers = findMostMembers(arr, studentsBeingConsidered);
+			//find index of student in the least number of groups
+			int leastGroupsStudent = findLeastGroupsStudent(arr, studentsBeingConsidered);
+
+			// find index of group that student is in with most members
+			int mostMembers = findMostMembers(arr, studentsBeingConsidered, leastGroupsStudent);
 
 			//Find which students are in it and remove from studentsBeingConsidered, subtract from studentsLeft
 			for(int j = 0; j < students.size(); j++)
@@ -142,7 +148,7 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return string;
 	}
 
-	public boolean[][] makeArray()
+	private boolean[][] makeArray()
 	{
 		boolean[][] arr = new boolean[groupCount][students.size()];
 
@@ -156,28 +162,75 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return arr;
 	}
 
-	public int findMostMembers(boolean[][] arr, boolean[] studentsBeingConsidered)
+	private int findMostMembers(boolean[][] arr, boolean[] studentsBeingConsidered, int leastGroupsStudent)
 	{
 		int mostMembers = 0;
 		int mostTrues = 0;
 		for(int i = 0; i < groupCount; i++)
 		{
-			int currentTrues = 0;
-			for(int j = 0; j < students.size(); j++)
+			if(arr[i][leastGroupsStudent])
 			{
-				if(studentsBeingConsidered[j] && arr[i][j]) {currentTrues++;}
-			}
-			if (currentTrues > mostTrues)
-			{
-				mostMembers = i;
-				mostTrues = currentTrues;
+				int currentTrues = 0;
+				for(int j = 0; j < students.size(); j++)
+				{
+					if(studentsBeingConsidered[j] && arr[i][j]){currentTrues++;}
+				}
+				if(currentTrues > mostTrues)
+				{
+					mostMembers = i;
+					mostTrues = currentTrues;
+				}
 			}
 		}
 		return mostMembers;
 	}
 
+	private int findLeastGroupsStudent(boolean[][] arr, boolean[] studentsBeingConsidered)
+	{
+		int leastGroups = 0;
+		int mostFalses = 0;
+		for(int j = 0; j < students.size(); j++)
+		{
+			int currentFalses = 0;
+			for(int i = 0; i < groupCount; i++)
+			{
+				if(studentsBeingConsidered[j] && !arr[i][j]) {currentFalses++;}
+			}
+			if(currentFalses > mostFalses)
+			{
+				leastGroups = j;
+				mostFalses = currentFalses;
+			}
+		}
+		return leastGroups;
+	}
+
+	public static boolean[] convert(String s)
+	{
+		boolean[] arr = new boolean[s.length()-1];
+
+		boolean goodConvert = true;
+		for(int i = 1; i < s.length(); i++)
+		{
+			if(s.charAt(i) == 'T')
+			{
+				arr[i-1] = true;
+			} else if(s.charAt(i) == 'F'){
+				arr[i-1] = false;
+			} else {
+				goodConvert = false;
+			}
+		}
+		if(goodConvert)
+		{
+			return arr;
+		} else {
+			return null;
+		}
+	}
+
 	// depreciated
-	public int[] totals()
+	private int[] totals()
 	{
 		int[] arrOfMembersPerGroup = new int[groupCount];
 		for (Student s : students)
