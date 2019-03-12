@@ -252,20 +252,4 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		}
 	}
 
-	/* depreciated
-	private int[] totals()
-	{
-		int[] arrOfMembersPerGroup = new int[groupCount];
-		for (Student s : students)
-		{
-			for(int i=0; i< groupCount; i++)
-			{
-				if(s.memberOfGroup(i))
-				{
-					arrOfMembersPerGroup[i]++;
-				}
-			}
-		}
-		return arrOfMembersPerGroup;
-	}*/
 }
