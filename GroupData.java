@@ -86,6 +86,7 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		}
 		return smallest; 
 	}
+
 	public String members(int num)
 	{
 		String members = "";
@@ -103,34 +104,37 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 
 		int numToReachAll = 0;
 
-		//create array to keep track of which students are still not in groups
+		//change club affliliations into 2d array to easily access group affiliations
+		boolean[][] groupsAndStudents = makeArray();
+
+		//Create array to keep track of which students are still not in groups
+		//Use counter to keep track of remaining #
 		boolean[] studentsBeingConsidered = new boolean[students.size()];
 		Arrays.fill(studentsBeingConsidered, true);
-		//counter of students that have not been grouped yet
 		int studentsLeft = students.size();
-
-
-		//change club affliliations into 2d array for ease of access
-		boolean[][] arr = makeArray();
 
 		while(studentsLeft > 0)
 		{
 			//find index of student in the least number of groups
-			int leastGroupsStudent = findLeastGroupsStudent(arr, studentsBeingConsidered);
+			int studentInLeastGroups = findLeastGroupsStudent(groupsAndStudents, studentsBeingConsidered);
 
-			// find index of group that student is in with most members
-			int mostMembers = findMostMembers(arr, studentsBeingConsidered, leastGroupsStudent);
+			//return 0 if there is a student in 0 groups
+			if(studentInLeastGroups == -1)
+			{
+				return 0;
+			}
 
-			//Find which students are in it and remove from studentsBeingConsidered, subtract from studentsLeft
+			//Find the group that studentInLeastGroups is a member of with the MOST other students and remove them
+			int mostMembersGroup = findMostMembers(groupsAndStudents, studentsBeingConsidered, studentInLeastGroups);
 			for(int j = 0; j < students.size(); j++)
 			{
-				if(arr[mostMembers][j] && studentsBeingConsidered[j])
+				if(groupsAndStudents[mostMembersGroup][j] && studentsBeingConsidered[j])
 				{
 					studentsBeingConsidered[j] = false;
 					studentsLeft--;
 				}
 			}
-			//increase numToReachAll everytime a group is formed until all students are covered (studentsLeft = 0)
+			//increment group counter
 			numToReachAll++;
 		}
 		return numToReachAll;
@@ -148,6 +152,8 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return string;
 	}
 
+	//Helper method for numToReachAll (cover) that turns the students' group info
+	//into a 2D array for easy traversal
 	private boolean[][] makeArray()
 	{
 		boolean[][] arr = new boolean[groupCount][students.size()];
@@ -162,18 +168,21 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return arr;
 	}
 
-	private int findMostMembers(boolean[][] arr, boolean[] studentsBeingConsidered, int leastGroupsStudent)
+	//Helper method for numToReachAll (cover) that finds which group
+	//that a given student is in has the most members.
+	// Ignores students already taken out of consideration.
+	private int findMostMembers(boolean[][] groupsAndStudents, boolean[] studentsBeingConsidered, int student)
 	{
 		int mostMembers = 0;
 		int mostTrues = 0;
 		for(int i = 0; i < groupCount; i++)
 		{
-			if(arr[i][leastGroupsStudent])
+			if(groupsAndStudents[i][student])
 			{
 				int currentTrues = 0;
 				for(int j = 0; j < students.size(); j++)
 				{
-					if(studentsBeingConsidered[j] && arr[i][j]){currentTrues++;}
+					if(studentsBeingConsidered[j] && groupsAndStudents[i][j]){currentTrues++;}
 				}
 				if(currentTrues > mostTrues)
 				{
@@ -185,7 +194,9 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return mostMembers;
 	}
 
-	private int findLeastGroupsStudent(boolean[][] arr, boolean[] studentsBeingConsidered)
+	//Helper method for numToReachAll (cover) that finds the student in the least number of groups.
+	//Ignores students already taken out of consideration.
+	private int findLeastGroupsStudent(boolean[][] groupsAndStudents, boolean[] studentsBeingConsidered)
 	{
 		int leastGroups = 0;
 		int mostFalses = 0;
@@ -194,9 +205,11 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 			int currentFalses = 0;
 			for(int i = 0; i < groupCount; i++)
 			{
-				if(studentsBeingConsidered[j] && !arr[i][j]) {currentFalses++;}
+				if(studentsBeingConsidered[j] && !groupsAndStudents[i][j]) {currentFalses++;}
 			}
-			if(currentFalses > mostFalses)
+			if(currentFalses == groupCount){
+				return -1;
+			} else if(currentFalses > mostFalses)
 			{
 				leastGroups = j;
 				mostFalses = currentFalses;
@@ -205,6 +218,8 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		return leastGroups;
 	}
 
+	//Method to take T/F string from Driver and turn it into boolean array. Returns null
+	//in case of illegal characters.
 	public static boolean[] convert(String s)
 	{
 		boolean[] arr = new boolean[s.length()-1];

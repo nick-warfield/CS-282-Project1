@@ -4,7 +4,7 @@ Group members:
 Nicholas Warfield
 Javier Aguayo
 John Wiesenfeld
- */
+*/
 
 import java.io.*;
 import java.util.Scanner;
@@ -23,7 +23,7 @@ public class Driver{
 			switch(commandline(data, in))
 			{
 				case "quit":		exit = true;		break;
-				case "add":		add(data, in);		break;
+				case "add":		    add(data, in);		break;
 				case "drop":		drop(data, in);		break;
 				case "find":		find(data, in);		break;
 				case "size":		size(data, in);		break;
@@ -32,7 +32,7 @@ public class Driver{
 				case "smallest":	smallest(data); 	break;
 				case "cover":		cover(data);		break;
 				case "print":		print(data);		break;
-				default:		help();			break;
+				default:	    	help();		    	break;
 			}
 		}
 		in.close();
@@ -78,6 +78,7 @@ public class Driver{
 			return;
 		}
 	}
+
 	public static void drop(GroupData data, Scanner in)
 	{
 		System.out.println("Enter student ID: ");
@@ -106,42 +107,33 @@ public class Driver{
 
 	public static void find(GroupData data, Scanner in)
 	{
-		while(true)
+		System.out.println("Enter student ID: ");
+		System.out.print('>');
+		long id = in.nextLong();
+		in.nextLine();
+
+		Student student = new Student(id);
+		student = data.find(student);
+
+		if(student != null)
 		{
-			System.out.println("Enter student ID: ");
-			System.out.print('>');
-			long id = in.nextLong();
-			in.nextLine();
-
-			Student student = new Student(id);
-			student = data.find(student);
-
-			if(student != null)
-			{
-				System.out.println(student.toString());
-				break;
-			} else {
-				System.out.println("ERROR: Student ID does not exist.");
-			}
-
+			System.out.println(student.toString());
+		} else {
+			System.out.println("ERROR: Student ID does not exist.");
 		}
 	}
 
 	public static void size(GroupData data, Scanner in)
 	{
-		while(true)
+		System.out.println("Enter Group #: ");
+		System.out.print('>');
+		int group = in.nextInt();
+		in.nextLine();
+		if(group > 0 && group <= data.numOfGroups())
 		{
-			System.out.println("Enter Group #: ");
-			System.out.print('>');
-			int group = in.nextInt();
-			in.nextLine();
-			if(group > 0 && group <= data.numOfGroups())
-			{
-				System.out.println("Size of group " + group + ": " + data.numInGroup(group));
-				break;
-			} else {
-				System.out.println("ERROR: Group does not exist");
-			}
+			System.out.println("Size of group " + group + ": " + data.numInGroup(group));
+		} else {
+			System.out.println("ERROR: Group does not exist");
 		}
 	}
 

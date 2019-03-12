@@ -1,0 +1,71 @@
+COMP282 Section 16304 Project 1
+
+Group members:
+Nicholas Warfield
+Javier Aguayo
+John Wiesenfeld
+
+Project Status: Compiles and runs properly.
+
+EXTRA CREDIT IMPLEMENTED AND WORKING: Our program will accept any number of groups for students as long as # of groups match for each student.
+
+Our driver waits for input from the user, and if it does not receive a command it recognizes, it will print available commands for the user, including "quit" which will end the program.
+
+We used a vector to store and manipulate student items. We decided this was most efficient since the order of student items did not matter and the implementation was simple and most of the methods we'd use are cheap.
+
+We wrote a compareTo() method in the Student class that accepts a Student item in order to properly implement the DataItem interface, even though we are only searching for students based on ID number. 
+The GroupData method find() will create a blank student with the given ID number from the user (we overloaded the Student constructor), and then use compareTo() on each element in our vector until it finds a match (or doesn't). 
+
+Our original cover method used the following algorithm used the following algorithm:
+	1. Find the group with the most members.
+	2. Remove those members from consideration.
+	3. Increment our numToReachAll counter by 1.
+	4. Loop steps 1-3 until all students are removed from consideration.
+
+Nicholas pointed out rightly that this algorithm does not cover all cases, and so our final algorithm was changed to:
+	1. Find the student that is a member of the least number of groups.
+	2. Find the which group that student is a member of that has the MOST other members.
+	3. Remove all members of that group from consideration.
+	4. Increment our numToReachAllCounter by 1.
+	5. Loop steps 1-4 until all students are removed from consideration.
+
+In addition, if there is at least one student that is not a member of any groups the cover() method will return 0.
+
+
+Development of Code:
+--------------------
+The following is a rough recounting of how our project developed:
+
+Nicholas worked out how to use git and got it running for all of us so we could collaborate remotely. 
+
+Javier wrote the initial version of the driver class, and got the file loading/reading working.
+
+John wrote the Student class.
+
+Nicholas wrote the skeleton of the GroupData class after we agreed on using the vector library.
+
+We divided up the work for the methods in GroupData as follows:
+	Nick:
+	add, drop, find, size
+
+	John:
+	members
+
+	Javier:
+	largest, smallest
+
+Once these were done, John implemented them within the Driver class, and Nick re-organized the driver class to use a switch statement for clarity.
+
+We discussed cover as a group and decided John would make the first attempt at coding it after we discussed algorithms.
+Once it was working, Nick pointed out that the algorithm doesn't take all cases into account, so John rewrote cover to implement Nick's idea for an algorithm.
+
+We all collaborated on efficiency and clarity improvements throughout the process, and made sure to write error and exception handling into all of our methods to prevent crashes. 
+
+We had a good experience working together on this, using git helped us all stay on the same page constantly and test out our methods/ideas in our own branches before updating the code. One of the bad things about working in the group was just that we are all very busy with other classes/obligations, so it was difficult to find to work together in person. Almost all our communication was via text message or in the few minutes before and after class, with the exception of one longer meeting at the beginning of the project.
+
+This summary file was written by John, edited by Nick and Javier.
+
+
+
+
+

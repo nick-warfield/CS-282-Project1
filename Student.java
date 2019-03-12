@@ -4,7 +4,7 @@ Group members:
 Nicholas Warfield
 Javier Aguayo
 John Wiesenfeld
- */
+*/
 
 public class Student implements DataItem<Student> {
 
@@ -15,13 +15,15 @@ public class Student implements DataItem<Student> {
 	public Student(long idNumber, String name, boolean[] inGroup) throws IllegalArgumentException
 	{
 		if(idNumber < 0 || idNumber >= 1000000000){
-			throw new IllegalArgumentException("ERROR: Invalid student ID");
+			throw new IllegalArgumentException("ERROR: Invalid student ID. Must be positive and 9 digits or fewer.");
 		}
-
 		this.idNumber = idNumber;
 		this.name = name;
 		this.inGroup = inGroup;
 	}
+
+	//Overloaded Constructor to create student item with only ID
+	//Used for compareTo() method implemented in Driver find()
 	public Student(long idNumber)
 	{
 		this.idNumber = idNumber;
@@ -77,7 +79,5 @@ public class Student implements DataItem<Student> {
 	{
 		return inGroup;
 	}
-
-
 
 }
