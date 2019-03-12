@@ -177,7 +177,7 @@ public class Driver{
 
 	public static void cover(GroupData data)
 	{
-		System.out.println("Minimum # of groups to cover all members: " + data.numToReachAll());
+		System.out.println("Minimum # of groups to cover all students: " + data.numToReachAll());
 	}
 
 	public static void print(GroupData data)
