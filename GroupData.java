@@ -64,7 +64,7 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 			groupTot[group-1] = numInGroup(group);
 		}
 		int  largest = groupTot[0]; 
-		int i = 0;
+		int i = 1;
 		while(i<groupTot.length)
 		{
 			if(groupTot[i]>largest)
@@ -82,11 +82,11 @@ public class GroupData implements DataStructOfItemsInGroups<Student>
 		{
 			groupTot[group-1] = numInGroup(group);
 		}
-		int  smallest = groupTot[0]; 
-		int i = 1;
+		int  smallest = groupCount; 
+		int i = 0;
 		while(i<groupTot.length)
 		{
-			if(groupTot[i]<smallest)
+			if(groupTot[i]<smallest && groupTot[i]!=0)
 			{
 				smallest = groupTot[i];
 			}
